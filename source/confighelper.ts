@@ -1,11 +1,14 @@
+import os from "os";
+
+const userInfo = os.userInfo();
+const username = userInfo.username;
 import fs from 'fs';
-const username = process.env['USERNAME'];
-export const configFolderPath = `C:\\Users\\${username}\\.inkgpt`;
-export const configFilePath = `C:\\Users\\${username}\\.inkgpt\\config`;
+export const configFolderPath = `/usr/${username}/.config/ink-chat-gpt`;
+export const configFilePath = `/usr/${username}/.config/ink-chat-gpt/configfile`;
 
 const ensureExists = () => {
 	if (!fs.existsSync(configFolderPath)) {
-		fs.mkdirSync(configFolderPath);
+		fs.mkdirSync(configFolderPath, {recursive:true});
 	}
 	if (!fs.existsSync(configFilePath)) {
 		fs.writeFileSync(configFilePath, '');
